@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册</title>
+</head>
+<body>
+    <label><span>email:</span><input type="email" id="email"></label>
+    <label><span>name:</span><input type="text" id="name"></label>
+    <label><span>password:</span><input type="password" id="password"></label>
+    <button onclick="login()">注册</button>
+    <a href="/users/login">已有账号？去登录</a>
+
+    <script>
+        const login=()=>{
+            const email=document.querySelector("#email").value;
+            const name=document.querySelector("#name").value;
+            const password=document.querySelector("#password").value;
+            const data={
+                email,
+                name,
+                password
+            }
+            fetch('/api/v1/signup',{
+                body:JSON.stringify(data),
+                headers:{
+                    'content-type':'application/json'
+                },
+                method:'POST'
+            })
+            .then(response=>response.json())
+            .then(resp=>{
+                console.log(resp)
+            })
+        }
+    </script>
+</body>
+</html>

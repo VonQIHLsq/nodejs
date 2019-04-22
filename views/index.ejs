@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+
+    <div class="avater">
+      <img src="" alt="" id="avatarImg">
+    </div>
+    <input type="file" name="" id="avatar">
+    <button onclick="uploadFile()">上传</button>
+    <script>
+      const avatarImg=document.querySelector("#avatarImg")
+      const uploadFile=()=>{
+        const avatar=document.querySelector('#avatar').files[0]
+        const data=new FormData()
+        data.append('avatar',avatar)
+        data.append('name','leo')
+        fetch('/api/v1/upload',{
+          method:'post',
+          body:data
+        })
+        .then(resp=>resp.json())
+        .then(json=>{
+          console.log(json)
+          if(json.code===200){
+            avatarImg.setAttribute('src',json.data.url)
+          }
+        })
+      }
+    </script>
+  </body>
+</html>
